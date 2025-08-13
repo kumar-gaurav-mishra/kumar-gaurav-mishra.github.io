@@ -12,7 +12,11 @@
   <nav>
     <div class="nav-container">
       <a href="#" class="logo">MyPortfolio</a>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -28,7 +32,7 @@
   </header>
 
   <!-- About Section -->
-  <section id="about" class="about">
+  <section id="about" class="about fade-in">
     <img src="https://via.placeholder.com/160" alt="Profile photo" class="profile" />
     <h2>About Me</h2>
     <p>
@@ -38,10 +42,10 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="projects">
+  <section id="projects" class="projects fade-in">
     <h2>Projects</h2>
     <div class="card-container">
-      <div class="card">
+      <div class="card fade-in">
         <img src="https://via.placeholder.com/400x200" alt="Project One">
         <div class="card-content">
           <h3>Project One</h3>
@@ -50,7 +54,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card fade-in">
         <img src="https://via.placeholder.com/400x200" alt="Project Two">
         <div class="card-content">
           <h3>Project Two</h3>
@@ -59,7 +63,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card fade-in">
         <img src="https://via.placeholder.com/400x200" alt="Project Three">
         <div class="card-content">
           <h3>Project Three</h3>
@@ -71,7 +75,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact">
+  <section id="contact" class="contact fade-in">
     <h2>Contact</h2>
     <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
     <p>GitHub: <a href="https://github.com/username" target="_blank">@username</a></p>
@@ -92,6 +96,7 @@
           behavior: 'smooth'
         });
         document.querySelector('.nav-links').classList.remove('show');
+        document.querySelector('.menu-toggle').classList.remove('active');
       });
     });
 
@@ -101,6 +106,22 @@
 
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Fade-in on scroll
+    const fadeElems = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.2 };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    fadeElems.forEach(elem => {
+      appearOnScroll.observe(elem);
     });
   </script>
 </body>

@@ -36,14 +36,40 @@ nav {
   text-decoration: none;
 }
 
+/* Hamburger Icon */
 .menu-toggle {
-  font-size: 1.5rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
   background: none;
   border: none;
-  display: none;
   cursor: pointer;
 }
 
+.menu-toggle .bar {
+  height: 3px;
+  width: 100%;
+  background: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Change to "X" when active */
+.menu-toggle.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Nav Links */
 .nav-links {
   display: flex;
   list-style: none;
@@ -70,7 +96,6 @@ header {
   color: white;
   padding: 3rem 1rem;
   text-align: center;
-  animation: fadeIn 1.5s ease-in;
 }
 
 header h1 {
@@ -87,7 +112,6 @@ section {
   max-width: 1100px;
   margin: auto;
   padding: 2rem;
-  animation: fadeUp 1.5s ease forwards;
 }
 
 h2 {
@@ -192,21 +216,22 @@ footer {
   background-color: #eee;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .menu-toggle {
-    display: block;
+    display: flex;
   }
 
   .nav-links {
